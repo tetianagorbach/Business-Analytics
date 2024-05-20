@@ -43,6 +43,18 @@ ggplot(data = day, aes(x = factor(holiday), y = cnt, fill = factor(holiday))) +
   labs(title = 'Bike Rentals on Holidays vs Non-Holidays', x = 'Holiday', y = 'Number of Rentals', fill = 'Holiday') +
   scale_fill_discrete(labels = c('Non-Holiday', 'Holiday')) +
   theme_minimal()
+
+ggplot(data = day, aes(x = factor(holiday), y = registered, fill = factor(holiday))) +
+  geom_boxplot() +
+  labs(title = 'Bike Rentals on Holidays vs Non-Holidays Registered users', x = 'Holiday', y = 'Number of Rentals', fill = 'Holiday') +
+  scale_fill_discrete(labels = c('Non-Holiday', 'Holiday')) +
+  theme_minimal()
+
+ggplot(data = day, aes(x = factor(holiday), y = casual, fill = factor(holiday))) +
+  geom_boxplot() +
+  labs(title = 'Bike Rentals on Holidays vs Non-Holidays Casual users', x = 'Holiday', y = 'Number of Rentals', fill = 'Holiday') +
+  scale_fill_discrete(labels = c('Non-Holiday', 'Holiday')) +
+  theme_minimal()
 ```
  Summaries:
 ```{r}
