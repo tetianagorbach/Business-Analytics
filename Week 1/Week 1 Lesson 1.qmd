@@ -1,0 +1,144 @@
+---
+title: "Intro to business analytics and R"
+format: html
+editor: visual
+---
+
+## Comparing GDP in some coutries
+
+In this lesson, we look at GDP data that you have already seen in the "Macroeconomics" course.
+
+First, we load GDP data from URLs, using R package called `rio`. To visualize information about GDP, we use R package `tidyverse`. Then, we
+
+```{r}
+#| echo: false
+#| warning: false
+# First, we load the required packages into the current R session. The packages rio and tidyverse should be installed beforehand.
+# See how to install R packages here: https://www.youtube.com/watch?v=ljdfqMfWn_A&ab_channel=SheffieldMethodsInstitute
+# install.packages("rio") #  install R package to import files using import function, see documentation https://cran.r-project.org/web/packages/rio/rio.pdf
+# install.packages("tidyverse")
+library(rio) # loading the rio R package
+library(tidyverse) # loading the tidyverse R package
+```
+
+<!-- If the packages are not installed, the error is shown. That means that you have to first install the packages using `install.packages` function and then load them into the R session using `library` function. If you need to install the packages, you have to run the R chunk below instead of the one above. To do this, -->
+
+<!-- 1.  comment the lines in the above R code chunk by adding \# in the beginning of each line before the word "library" (then the code will not be run by R) -->
+
+<!-- 2.  delete the first \# in each line in the R chunk below to uncomment the lines -->
+
+<!-- 3.  render the file again. -->
+
+All of the data for this task is acquired from The World Bank: --\>
+
+-   Nominal GDP (GDP in current US\$): <https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.CD>
+
+-   Real GDP (GDP in constant 2015 US\$): <https://data.worldbank.org/indicator/NY.GDP.MKTP.KD>
+
+-   Population: <https://data.worldbank.org/indicator/SP.POP.TOTL>
+
+```{r}
+#| echo: false
+gdp_nominal_all_countries <- rio::import("https://raw.githubusercontent.com/tetianagorbach/Business-Analytics/main/Week%201/gdp_nominal.csv")
+gdp_real_all_countries <- rio::import("https://raw.githubusercontent.com/tetianagorbach/Business-Analytics/main/Week%201/gdp_real.csv")
+population <- rio::import("https://raw.githubusercontent.com/tetianagorbach/Business-Analytics/main/Week%201/population.csv")
+```
+
+<!-- The first row in each data file is actually the column names. The following code sets the first row as column names and then removes the first row. -->
+
+```{r}
+#| echo: false
+# Use the first row as column names in all data sets
+names(gdp_nominal_all_countries) <- apply(gdp_nominal_all_countries[1, ], 2, as.character)
+names(gdp_real_all_countries) <- apply(gdp_real_all_countries[1, ], 2, as.character)
+names(population) <- apply(population[1, ], 2, as.character)
+# Remove the first row from the data in all data sets
+gdp_nominal_all_countries <- gdp_nominal_all_countries[-1, ]
+gdp_real_all_countries <- gdp_real_all_countries[-1, ]
+population <- population[-1, ]
+# replace spaces in the column names with underscores because otherwise issues with variable names
+names(gdp_nominal_all_countries) <- gsub(" ", "_", names(gdp_nominal_all_countries))
+names(gdp_real_all_countries) <- gsub(" ", "_", names(gdp_real_all_countries))
+names(population) <- gsub(" ", "_", names(population))
+# remove the last column in each dataset
+gdp_nominal_all_countries <- gdp_nominal_all_countries[, -ncol(gdp_nominal_all_countries)]
+gdp_real_all_countries <- gdp_real_all_countries[, -ncol(gdp_real_all_countries)]
+population <- population[, -ncol(population)]
+```
+
+```{r}
+#| echo: false
+selected_countries <- c("Sweden", "Norway", "Finland", "Denmark", "Iceland")
+selected_countries <- c("China", "India", "Brazil")
+gdp_nominal_selected_countries_long <- gdp_nominal_all_countries %>%
+  dplyr::filter(Country_Name %in% selected_countries) %>% # select only three countries
+  dplyr::select(Country_Name, "1960":"2022") %>%
+  pivot_longer(cols = "1960":"2022", names_to = "Year", values_to = "Nominal_GDP_USD")
+
+gdp_real_selected_countries_long <- gdp_real_all_countries %>%
+  dplyr::filter(Country_Name %in% selected_countries) %>% # select only three countries
+  dplyr::select(Country_Name, "1960":"2022") %>%
+  pivot_longer(cols = "1960":"2022", names_to = "Year", values_to = "Real_GDP_2015_USD")
+
+
+population_selected <- population %>%
+  dplyr::filter(Country_Name %in% selected_countries) %>% # select only three countries
+  dplyr::select(Country_Name, "1960":"2022") %>%
+  pivot_longer(cols = "1960":"2022", names_to = "Year", values_to = "Population")
+```
+
+```{r}
+#| echo: false
+gdp_nominal_selected_countries_long %>%
+  ggplot(aes(x = Year, y = Nominal_GDP_USD/1000000000, group = Country_Name, col = Country_Name)) +
+  geom_line() +
+  ggtitle("Nominal GDP in billions of current US-Dollars") +
+  xlab("Year") +
+  ylab("GDP") + 
+  scale_x_discrete(breaks = seq(1960, 2022, by = 5), labels =  seq(1960, 2022, by = 5)) # display only every 5th year
+```
+
+```{r}
+#| echo: false
+gdp_real_selected_countries_long%>%
+  ggplot(aes(x = Year, y = Real_GDP_2015_USD/1000000000, group = Country_Name, col = Country_Name)) +
+  geom_line() +
+  ggtitle("Real GDP in billions of 2015 US-Dollars") +
+  xlab("Year") +
+  ylab("GDP") + 
+  scale_x_discrete(breaks = seq(1960, 2022, by = 5), labels =  seq(1960, 2022, by = 5)) +  # display only every 5th year
+  theme_minimal()
+
+
+a <- gdp_nominal_selected_countries_long %>%
+  full_join(gdp_real_selected_countries_long, by = c("Country_Name", "Year")) %>%
+  full_join(population_selected, by = c("Country_Name", "Year"))
+
+a %>%
+  ggplot(aes(x = Year, y = Nominal_GDP_USD / Population/1000, group = Country_Name, col = Country_Name)) +
+  geom_line() +
+  ggtitle("Nominal GDP in thousands of current US-Dollars per capita") +
+  xlab("Year") +
+  ylab("GDP") + 
+  scale_x_discrete(breaks = seq(1960, 2022, by = 5), labels =  seq(1960, 2022, by = 5)) + # display only every 5th year
+  theme_minimal()
+
+a %>%
+  ggplot(aes(x = Year, y = Real_GDP_2015_USD / Population/1000, group = Country_Name, col = Country_Name)) +
+  geom_line() +
+  ggtitle("Real GDP in thousands of current US-Dollars per capita") +
+  xlab("Year") +
+  ylab("GDP") +   
+  scale_x_discrete(breaks = seq(1960, 2022, by = 5), labels =  seq(1960, 2022, by = 5)) +  # display only every 5th year
+  theme_minimal()
+```
+
+```{r}
+# a <- a %>% mutate(Popint = as.numeric(Population))
+# a %>%
+#   ggplot(aes(x = Popint, y = Real_GDP_2015_USD, group = Country_Name, col = Country_Name)) +
+#   geom_point() +
+#   ggtitle("Nominal GDP in current US-Dollars per capita") +
+#   xlab("Population") +
+#   ylab("GDP")
+```

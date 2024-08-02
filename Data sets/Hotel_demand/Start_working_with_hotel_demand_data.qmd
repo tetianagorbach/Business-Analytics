@@ -1,0 +1,51 @@
+---
+title: "Start working with Hotel demand data"
+format: html
+editor: visual
+---
+
+To start working with the data, you might
+
+-   download data on your computer,
+
+-   change the path to data on your computer in the `load` function
+
+-   render this file and look at the output in your default browser.
+
+Continue working with the data by adding new code chunks, writing and executing the written code, rendering the file.
+
+```{r, load libraries}
+#| include: TRUE
+#| echo: TRUE
+# see more about chunk options, such as include and echo,  at https://quarto.org/docs/computations/execution-options.html
+library(tidyverse)
+```
+
+To load the data in R environment, download the data from Canvas to your computer and use the command `load` as below. Do not forget to substitute the path to the file to the path to the file on YOUR computer
+
+```{r load data}
+# Do not forget to substitute the path to the file to the path to the file on YOUR computer
+# on Windows, the paths might look like  "C:\\Users\\YourUsername\\Documents\\data.csv"
+# on MAC, the paths look like "/Users/YourUsername/Documents/data.csv"
+h1 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H1.rds") 
+h2 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H2.rds") 
+```
+
+Take a look at the first couple of rows of the data:
+
+```{r, first 3 rows}
+head(h1, n = 3)
+head(h2, n = 3)
+```
+
+Get a glimpse of the data:
+
+```{r}
+glimpse(h1)
+glimpse(h2)
+```
+
+Continue working with the data by adding new code chunks via menu Code/Insert chunk, writing the code, executing the written code or rendering the file.
+
+```{r, working with data}
+```

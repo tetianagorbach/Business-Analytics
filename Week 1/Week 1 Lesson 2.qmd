@@ -1,0 +1,69 @@
+---
+title: "Week 1 Lesson 2"
+format: html
+editor: visual
+---
+
+# Exercise 1.
+
+```{r, load libraries}
+#| include: TRUE
+#| echo: TRUE
+# see more about chunk options, such as include and echo,  at https://quarto.org/docs/computations/execution-options.html
+library(tidyverse)
+```
+
+To load the data in R environment, download the data from Canvas to your computer and use the command `load` as below. Do not forget to substitute the path to the file to the path to the file on YOUR computer
+
+```{r load bike data}
+# Do not forget to substitute the path to the file to the path to the file on YOUR computer
+load("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Bike rental/bike.Rdata") 
+```
+
+Take a look at the first couple of rows of the data:
+
+```{r, first 6 rows}
+head(bike)
+```
+
+Get a glimpse of the data:
+
+```{r}
+glimpse(bike)
+```
+
+```{r, count types of weather}
+bike%>%
+  summarise(rented_member = sum(member))
+sum(bike$member)
+```
+
+```{r}
+bike%>%
+  mutate(percentage_rented_member = member/total)
+```
+
+```{r, visualize number of days per type of weather}
+bike%>%
+  ggplot() + 
+  geom_point(aes(x = instant, y = member, col = season)) + 
+  theme_minimal()
+bike%>%
+  ggplot() + 
+  geom_point(aes(x = instant, y = nonmember, col = season)) + 
+  theme_minimal()
+
+```
+
+### Exercise 2.
+
+First, remove all objects from the environment to start with the new exercise.
+
+```{r}
+rm(list = ls()) # remove all objects from the environment to start with the new exercise.
+```
+
+```{r}
+h1 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H1.rds") 
+h2 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H2.rds") 
+```
