@@ -66,37 +66,45 @@ rm(list = ls()) # remove all objects from the environment to start with the new 
 ```{r}
 
 load("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Charles_book_club/CharlesBookClub.Rdata") 
-
-# h1 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H1.rds") 
-# h2 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H2.rds") 
 ```
 
 ```{r}
-glimpse(h1)
+glimpse(book)
 ```
 
-Proportions of canceled bookings
+Proportions of members that bought the book "The Art history of Florence"
 
 ```{r}
-h1%>%
-  mutate(IsCanceled = as.numeric(as.character(IsCanceled)))%>%
-  summarise(proportion_canceled = sum(IsCanceled)/nrow(h1))
+book%>%
+  summarise(proportion_bought = sum(Florence)/nrow(book))
+
+book %>%
+  count(Gender, Florence)
 ```
 
-```{r}
-h1%>%
-  ggplot()+ 
-  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled), position = "fill") + 
-  scale_y_continuous(labels = scales::percent)
-h2%>%
-  ggplot()+ 
-  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled), position = "fill") + 
-  scale_y_continuous(labels = scales::percent)
+Percentage of those, who bought the book "The Art history of Florence" by gender
 
-h1%>%
-  ggplot()+ 
-  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled)) 
-h2%>%
-  ggplot()+ 
-  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled)) 
+```{r}
+book %>%
+  count(Gender, Florence) %>%  # Step 1: Count the combinations
+  group_by(Gender) %>%  # Step 2: Group by Gender
+  mutate(percentage_of_each_gender = n / sum(n) * 100) %>%  # Step 3: Calculate percentage
+  ungroup()
+```
+
+
+
+```{r}
+book %>%
+  count(Gender, Florence) %>%                          # Count the occurrences of each combination
+  group_by(Gender) %>%                                 # Group by Gender
+  mutate(percentage = n / sum(n)) %>%                  # Calculate percentage within each Gender group
+  ggplot(aes(x = Gender, y = percentage, fill = as.character(Florence))) + 
+  geom_bar(stat = "identity") +                        # Use 'identity' to use precomputed values
+  scale_y_continuous(labels = scales::percent) +       # Format y-axis labels as percentages
+  labs(title = "Percentage of Book Purchases by Gender and Florence",
+       x = "Gender",
+       y = "Percentage",
+       fill = "Florence") +
+  theme_minimal()
 ```
