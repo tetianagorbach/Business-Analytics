@@ -21,7 +21,7 @@ Continue working with the data by adding new code chunks, writing and executing 
 library(tidyverse)
 ```
 
-To load the data in R environment, download the data from Canvas to your computer and use the command `load` as below. Do not forget to substitute the path to the file to the path to the file on YOUR computer
+To load the data in R environment, download the data from Canvas to your computer and use the command `readRDS` as below. Do not forget to substitute the path to the file to the path to the file on YOUR computer
 
 ```{r load data}
 # Do not forget to substitute the path to the file to the path to the file on YOUR computer
