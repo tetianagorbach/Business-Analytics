@@ -27,19 +27,19 @@ To load the data in R environment, download the data from Canvas to your compute
 # Do not forget to substitute the path to the file to the path to the file on YOUR computer.
 # on Windows, the paths might look like  "C:\\Users\\YourUsername\\Documents\\data.csv"
 # on MAC OS, the paths look like "/Users/YourUsername/Documents/data.csv"
-data_club <- read.csv("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/CharlesBookClub.csv") 
+load("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Charles_book_club/CharlesBookClub.Rdata") 
 ```
 
 Take a look at the first couple of rows of the data:
 
 ```{r, first 6 rows}
-head(data_club)
+head(book)
 ```
 
 Get a glimpse of the data:
 
 ```{r}
-glimpse(data_club)
+glimpse(book)
 ```
 
 Continue working with the data by adding new code chunks via menu Code/Insert chunk, writing the code, executing the written code or rendering the file.

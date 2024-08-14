@@ -64,6 +64,39 @@ rm(list = ls()) # remove all objects from the environment to start with the new 
 ```
 
 ```{r}
-h1 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H1.rds") 
-h2 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H2.rds") 
+
+load("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Charles_book_club/CharlesBookClub.Rdata") 
+
+# h1 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H1.rds") 
+# h2 <- readRDS("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Hotel_demand/data_hotel/H2.rds") 
+```
+
+```{r}
+glimpse(h1)
+```
+
+Proportions of canceled bookings
+
+```{r}
+h1%>%
+  mutate(IsCanceled = as.numeric(as.character(IsCanceled)))%>%
+  summarise(proportion_canceled = sum(IsCanceled)/nrow(h1))
+```
+
+```{r}
+h1%>%
+  ggplot()+ 
+  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled), position = "fill") + 
+  scale_y_continuous(labels = scales::percent)
+h2%>%
+  ggplot()+ 
+  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled), position = "fill") + 
+  scale_y_continuous(labels = scales::percent)
+
+h1%>%
+  ggplot()+ 
+  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled)) 
+h2%>%
+  ggplot()+ 
+  geom_bar(aes(x = IsRepeatedGuest, fill = IsCanceled)) 
 ```
