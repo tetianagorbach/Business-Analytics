@@ -25,8 +25,8 @@ To load the data in R environment, download the data from Canvas to your compute
 
 ```{r load bike data}
 # Do not forget to substitute the path to the file to the path to the file on YOUR computer.
-# on Windows, the paths might look like  "C:\\Users\\YourUsername\\Documents\\data.csv"
-# on MAC OS, the paths look like "/Users/YourUsername/Documents/data.csv"
+# on Windows, the paths might look like  "C:\\Users\\YourUsername\\Documents\\bike.Rdata"
+# on MAC OS, the paths look like "/Users/YourUsername/Documents/bike.Rdata"
 load("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Bike rental/bike.Rdata") 
 ```
 
