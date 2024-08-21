@@ -30,7 +30,7 @@ bike %>%
   theme_minimal()
 ```
 
-# Exercise 2 
+# Exercise 2
 
 ```{r}
 bike %>%
@@ -42,8 +42,8 @@ bike %>%
 
 # Exercise 3
 
-
 Boxplots
+
 ```{r}
 bike %>%
   ggplot() +
@@ -65,6 +65,7 @@ bike_long %>%
 ```
 
 Histograms
+
 ```{r}
 bike_long %>%
   ggplot() +
@@ -81,12 +82,14 @@ bike_long %>%
 ```
 
 Summaries
+
 ```{r}
 summary(bike$member)
 summary(bike$nonmember)
 ```
 
 # Exercise 4
+
 ```{r}
 bike %>%
   pivot_longer(cols = c(member, nonmember), names_to = "customer_type", values_to = "number_of_rentals") %>%
@@ -111,8 +114,6 @@ bike %>%
 #        y = "Number of Rentals",
 #        col = "Customer type" )  
 ```
-
-
 
 # Exercise 5
 
