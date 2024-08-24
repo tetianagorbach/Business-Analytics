@@ -6,9 +6,7 @@ editor: visual
 
 To start working with the data, you might
 
--   download data on your computer,
-
--   change the path to data on your computer in the `load` function
+-   download data file to your computer and to THE SAME FOLDER AS THIS QUARTO FILE (!!!!)
 
 -   render this file and look at the output in your default browser.
 
@@ -21,13 +19,11 @@ Continue working with the data by adding new code chunks, writing and executing 
 library(tidyverse)
 ```
 
-To load the data in R environment, download the data from Canvas to your computer and use the command `read.csv` as below. Do not forget to substitute the path to the file to the path to the file on YOUR computer
+To load the data into R environment, download the data from Canvas to your computer \
+and THE SAME FOLDER AS THIS QUARTO file and use the command `load` as below.
 
 ```{r load data}
-# Do not forget to substitute the path to the file to the path to the file on YOUR computer
-# on Windows, the paths might look like  "C:\\Users\\YourUsername\\Documents\\data.csv"
-# on MAC, the paths look like "/Users/YourUsername/Documents/data.csv"
-data_credit <- read.csv("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/German_credit/GermanCredit.csv") 
+data_credit <- read.csv("GermanCredit.csv") 
 ```
 
 Take a look at the first couple of rows of the data:
