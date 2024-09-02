@@ -13,13 +13,16 @@ editor: visual
 library(tidyverse)
 ```
 
-To load the data in R environment, download the data from Canvas to your computer and use the command `load` as below. Do not forget to substitute the path to the file to the path to the file on YOUR computer
+To start working with the data, you might
+
+-   download data file to your computer and to THE SAME FOLDER AS THIS QUARTO FILE (!!!!)
+
+-   render this file and look at the output in your default browser.
+
+Continue working with the data by adding new code chunks, writing and executing the written code, rendering the file.
 
 ```{r load bike data}
-# Do not forget to substitute the path to the file to the path to the file on YOUR computer.
-# on Windows, the paths might look like  "C:\\Users\\YourUsername\\Documents\\bike.Rdata"
-# on MAC OS, the paths look like "/Users/YourUsername/Documents/bike.Rdata"
-load("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Bike rental/bike.Rdata") 
+load("bike.Rdata") 
 ```
 
 Take a look at the first couple of rows of the data:
@@ -57,7 +60,7 @@ bike%>%
 
 ```
 
-### Exercise 2.
+# Exercise 2.
 
 First, remove all objects from the environment to start with the new exercise.
 
@@ -67,7 +70,7 @@ rm(list = ls()) # remove all objects from the environment to start with the new 
 
 ```{r}
 
-load("/Users/gote0002/Documents/GitHub/Business-Analytics/Data sets/Charles_book_club/CharlesBookClub.Rdata") 
+load("CharlesBookClub.Rdata") 
 ```
 
 ```{r}

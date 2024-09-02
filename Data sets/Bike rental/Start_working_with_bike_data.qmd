@@ -19,7 +19,7 @@ Continue working with the data by adding new code chunks, writing and executing 
 library(tidyverse)
 ```
 
-To load the data into R environment, download the data from Canvas to your computer \
+To load the data into R environment, download the data from Canvas to your computer\
 and THE SAME FOLDER AS THIS QUARTO FILE and use the command `load` as below. Otherwise, you have to specify the full path to the data file in the `load` command.
 
 ```{r load bike data}
