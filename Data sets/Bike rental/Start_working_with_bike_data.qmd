@@ -23,7 +23,7 @@ To load the data into R environment, download the data from Canvas to your compu
 and THE SAME FOLDER AS THIS QUARTO FILE and use the command `load` as below. Otherwise, you have to specify the full path to the data file in the `load` command.
 
 ```{r load bike data}
-load("bike.Rdata") 
+load("bike.RData") 
 ```
 
 Take a look at the first couple of rows of the data:

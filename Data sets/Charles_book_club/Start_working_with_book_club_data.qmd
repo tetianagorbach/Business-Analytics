@@ -1,6 +1,6 @@
 ---
 title: "Start working with Charles Book Club data"
-format: html
+format: pdf
 editor: visual
 ---
 
@@ -19,11 +19,11 @@ Continue working with the data by adding new code chunks, writing and executing 
 library(tidyverse)
 ```
 
-To load the data into R environment, download the data from Canvas to your computer \
+To load the data into R environment, download the data from Canvas to your computer\
 and THE SAME FOLDER AS THIS QUARTO file and use the command `load` as below. Otherwise, you have to specify the full path to the data file in the `load` command.
 
 ```{r load data}
-load("CharlesBookClub.Rdata") 
+load("CharlesBookClub.RData") 
 ```
 
 Take a look at the first couple of rows of the data:
